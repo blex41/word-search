@@ -1,6 +1,7 @@
 # word-search
 
-[![CircleCI](https://circleci.com/gh/blex41/word-search.svg?style=shield&circle-token=023915fcedc167ece1538752991e2df6d1f5f876)](https://circleci.com/gh/blex41/word-search)
+[![Build Status](https://travis-ci.com/blex41/word-search.svg?branch=master)](https://travis-ci.com/blex41/word-search)
+[![Coverage Status](https://coveralls.io/repos/github/blex41/word-search/badge.svg?branch=master)](https://coveralls.io/github/blex41/word-search?branch=master)
 
 Word search puzzle generator.
 
@@ -19,7 +20,7 @@ const WordSearch = require("@blex41/word-search");
 In a browser:
 
 ```html
-<script src="https://unpkg.com/@blex41/word-search@1.0.3/dist/wordsearch.min.js"></script>
+<script src="https://unpkg.com/@blex41/word-search@1.0.4/dist/wordsearch.min.js"></script>
 <script>
   /* WordSearch is available here */
 </script>
