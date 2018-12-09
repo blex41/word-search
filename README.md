@@ -13,7 +13,7 @@ With NodeJS:
 ... and then:
 
 ```javascript
-const WordSearch = require("word-search");
+const WordSearch = require("@blex41/word-search");
 ```
 
 In a browser:
