@@ -7,7 +7,7 @@ const defaultSettings = require("./defaultsettings.js");
 
 class WordSearch {
   constructor(options = {}) {
-    this.settings = _merge(defaultSettings, options);
+    this.settings = _merge(_cloneDeep(defaultSettings), _cloneDeep(options));
     this.settings.allowedDirections = _difference(
       this.settings.allowedDirections,
       this.settings.disabledDirections

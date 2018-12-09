@@ -19,7 +19,7 @@ const WordSearch = require("@blex41/word-search");
 In a browser:
 
 ```html
-<script src="https://unpkg.com/@blex41/word-search@1.0.0/dist/wordsearch.min.js"></script>
+<script src="https://unpkg.com/@blex41/word-search@1.0.3/dist/wordsearch.min.js"></script>
 <script>
   /* WordSearch is available here */
 </script>

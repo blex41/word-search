@@ -7,11 +7,61 @@ describe("WordSearch", () => {
     rows: 10,
     disabledDirections: [],
     allowedDirections: ["N", "S", "E", "W", "NE", "NW", "SE", "SW"],
-    dictionary: ["Hello", "world"],
+    dictionary: ["Hello", "world", "and", "welcome"],
     maxWords: 20,
     upperCase: true,
     diacritics: false
   });
+  const options5 = {
+    settings: {
+      cols: 10,
+      rows: 10,
+      disabledDirections: [],
+      allowedDirections: ["N", "S", "E", "W", "NE", "NW", "SE", "SW"],
+      dictionary: ["Hello", "world"],
+      maxWords: 4,
+      upperCase: true,
+      diacritics: false
+    },
+    data: {
+      grid: [
+        ["H", "O", "G", "N", "I", "A", "Q", "R", "S", "D"],
+        ["L", "M", "F", "N", "T", "N", "F", "N", "L", "U"],
+        ["T", "J", "P", "R", "P", "E", "V", "R", "M", "E"],
+        ["Y", "T", "R", "R", "Y", "K", "O", "F", "B", "D"],
+        ["B", "G", "G", "R", "P", "W", "V", "M", "G", "N"],
+        ["Y", "J", "V", "U", "G", "S", "G", "H", "X", "V"],
+        ["E", "A", "O", "O", "L", "L", "E", "H", "W", "C"],
+        ["F", "A", "L", "B", "V", "V", "V", "K", "V", "P"],
+        ["T", "X", "R", "S", "F", "N", "J", "R", "H", "S"],
+        ["D", "T", "E", "G", "E", "S", "H", "O", "M", "A"]
+      ],
+      words: [
+        {
+          word: "Hello",
+          clean: "HELLO",
+          path: [
+            { x: 7, y: 6 },
+            { x: 6, y: 6 },
+            { x: 5, y: 6 },
+            { x: 4, y: 6 },
+            { x: 3, y: 6 }
+          ]
+        },
+        {
+          word: "world",
+          clean: "WORLD",
+          path: [
+            { x: 5, y: 4 },
+            { x: 6, y: 3 },
+            { x: 7, y: 2 },
+            { x: 8, y: 1 },
+            { x: 9, y: 0 }
+          ]
+        }
+      ]
+    }
+  };
 
   it(`creates an instance with default settings`, () => {
     expect(ws1.settings).toEqual(ws1.defaultSettings);
@@ -39,7 +89,7 @@ describe("WordSearch", () => {
   });
 
   it(`ws.words returns a list of words with the correct length`, () => {
-    expect(ws2.words).toHaveLength(2);
+    expect(ws2.words).toHaveLength(4);
   });
 
   it(`ws.utils returns an object`, () => {
@@ -52,68 +102,21 @@ describe("WordSearch", () => {
     expect(typeof dump.settings).toBe("object");
     expect(typeof dump.data).toBe("object");
     expect(dump.data.grid).toHaveLength(ws2.settings.rows);
-    expect(dump.data.words).toHaveLength(2);
+    expect(dump.data.words).toHaveLength(4);
   });
 
   it(`ws.load() correctly applies the given properties`, () => {
-    const options = {
-      settings: {
-        cols: 10,
-        rows: 10,
-        disabledDirections: [],
-        allowedDirections: ["N", "S", "E", "W", "NE", "NW", "SE", "SW"],
-        dictionary: ["Hello", "world"],
-        maxWords: 4,
-        upperCase: true,
-        diacritics: false
-      },
-      data: {
-        grid: [
-          ["H", "O", "G", "N", "I", "A", "Q", "R", "S", "D"],
-          ["L", "M", "F", "N", "T", "N", "F", "N", "L", "U"],
-          ["T", "J", "P", "R", "P", "E", "V", "R", "M", "E"],
-          ["Y", "T", "R", "R", "Y", "K", "O", "F", "B", "D"],
-          ["B", "G", "G", "R", "P", "W", "V", "M", "G", "N"],
-          ["Y", "J", "V", "U", "G", "S", "G", "H", "X", "V"],
-          ["E", "A", "O", "O", "L", "L", "E", "H", "W", "C"],
-          ["F", "A", "L", "B", "V", "V", "V", "K", "V", "P"],
-          ["T", "X", "R", "S", "F", "N", "J", "R", "H", "S"],
-          ["D", "T", "E", "G", "E", "S", "H", "O", "M", "A"]
-        ],
-        words: [
-          {
-            word: "Hello",
-            clean: "HELLO",
-            path: [
-              { x: 7, y: 6 },
-              { x: 6, y: 6 },
-              { x: 5, y: 6 },
-              { x: 4, y: 6 },
-              { x: 3, y: 6 }
-            ]
-          },
-          {
-            word: "world",
-            clean: "WORLD",
-            path: [
-              { x: 5, y: 4 },
-              { x: 6, y: 3 },
-              { x: 7, y: 2 },
-              { x: 8, y: 1 },
-              { x: 9, y: 0 }
-            ]
-          }
-        ]
-      }
-    };
-    ws2.load(options);
-    expect(ws2.grid).toEqual(options.data.grid);
-    expect(ws2.settings).toEqual(options.settings);
+    const ws5 = new WordSearch();
+    ws5.load(options5);
+    expect(ws5.grid).toEqual(options5.data.grid);
+    expect(ws5.settings).toEqual(options5.settings);
   });
 
   it(`ws.read() returns the correct string`, () => {
-    expect(ws2.read({ x: 7, y: 6 }, { x: 3, y: 6 })).toEqual("HELLO");
-    expect(ws2.read({ x: 7, y: 6 }, { x: 3, y: 9 })).toEqual(null);
+    const ws5 = new WordSearch();
+    ws5.load(options5);
+    expect(ws5.read({ x: 7, y: 6 }, { x: 3, y: 6 })).toEqual("HELLO");
+    expect(ws5.read({ x: 7, y: 6 }, { x: 3, y: 9 })).toEqual(null);
   });
 
   it(`ws.toString() returns the grid as a string`, () => {
