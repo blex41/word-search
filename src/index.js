@@ -48,7 +48,7 @@ class WordSearch {
         }
       }
     });
-    addedWords.sort();
+    addedWords.sort((a, b) => (a.clean > b.clean ? 1 : -1));
     grid = utils.fillGrid(grid, this.settings.upperCase);
 
     return { grid, words: addedWords };
