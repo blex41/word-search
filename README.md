@@ -8,7 +8,7 @@ Word search puzzle generator.
 
 With NodeJS:
 
-    npm install -S word-search
+    npm install -S @blex41/word-search
 
 ... and then:
 
@@ -19,7 +19,7 @@ const WordSearch = require("word-search");
 In a browser:
 
 ```html
-<script src="https://unpkg.com/word-search@1.0.0/dist/wordsearch.min.js"></script>
+<script src="https://unpkg.com/@blex41/word-search@1.0.0/dist/wordsearch.min.js"></script>
 <script>
   /* WordSearch is available here */
 </script>

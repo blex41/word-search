@@ -1,5 +1,5 @@
 {
-  "name": "word-search",
+  "name": "@blex41/word-search",
   "version": "1.0.0",
   "description": "Customizable word search puzzle generator",
   "main": "src/index.js",
