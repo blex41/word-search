@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "test": "jest --verbose --coverage && jest-coverage-badges",
-    "jsdoc": "jsdoc-md --target-heading Utils --source-glob \"src/utils.js\""
+    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "@babel/core": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "babel-loader": "^8.0.4",
+    "coveralls": "^3.0.2",
     "jest": "^23.6.0",
     "jest-coverage-badges": "^1.0.0",
     "webpack": "^4.27.1",
