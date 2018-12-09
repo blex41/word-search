@@ -1,6 +1,3 @@
-//var webpack = require("webpack");
-//var UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
-
 module.exports = {
   target: "web",
   entry: "./src/index.js",
