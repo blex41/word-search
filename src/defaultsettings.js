@@ -5,6 +5,7 @@ module.exports = {
   allowedDirections: ["N", "S", "E", "W", "NE", "NW", "SE", "SW"],
   dictionary: [],
   maxWords: 20,
+  backwardsProbability: 0.3,
   upperCase: true,
   diacritics: false
 };

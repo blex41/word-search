@@ -10,6 +10,7 @@ const testCases = [
       [".", ".", ".", ".", "."]
     ],
     allowedDirections: ["N", "S"],
+    backwardsProbability: 0.3,
     possible: false
   },
   {
@@ -21,6 +22,7 @@ const testCases = [
       [".", ".", ".", ".", "."]
     ],
     allowedDirections: ["E"],
+    backwardsProbability: 1,
     possible: true
   },
   {
@@ -32,6 +34,7 @@ const testCases = [
       [".", ".", ".", ".", "."]
     ],
     allowedDirections: ["E"],
+    backwardsProbability: 0,
     possible: true
   },
   {
@@ -43,6 +46,7 @@ const testCases = [
       [".", ".", "X", ".", "."]
     ],
     allowedDirections: ["N", "S", "E", "W", "NE", "NW", "SE", "SW"],
+    backwardsProbability: 0.5,
     possible: false
   }
 ];
@@ -50,7 +54,12 @@ const testCases = [
 describe("utils.findPathInGrid", () => {
   testCases.forEach(t => {
     it(`returns correct result (case ${t.name})`, () => {
-      const res = findPathInGrid(t.word, t.grid, t.allowedDirections);
+      const res = findPathInGrid(
+        t.word,
+        t.grid,
+        t.allowedDirections,
+        t.backwardsProbability
+      );
       if (t.possible) {
         expect(res.length).toEqual(t.word.length);
       } else {

@@ -40,7 +40,8 @@ class WordSearch {
         const path = utils.findPathInGrid(
           clean,
           grid,
-          this.settings.allowedDirections
+          this.settings.allowedDirections,
+          this.settings.backwardsProbability
         );
         if (path !== false) {
           grid = utils.addWordToGrid(clean, path, grid);

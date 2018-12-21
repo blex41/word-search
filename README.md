@@ -36,6 +36,7 @@ const options = {
   disabledDirections: ["N", "W", "NW", "SW"],
   dictionary: ["Hello", "crêpe", "Škoda", "word", "search"],
   maxWords: 20,
+  backwardsProbability: 0.3,
   upperCase: true,
   diacritics: true
 };
@@ -57,15 +58,16 @@ console.log(ws.toString());
 
 Here are the options you can pass when creating a new puzzle:
 
-| name               | type         | default | description                                                                                                                      |
-| ------------------ | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| cols               | Integer      | `10`    | Number of columns                                                                                                                |
-| rows               | Integer      | `10`    | Number of rows                                                                                                                   |
-| disabledDirections | Array.String | `[]`    | Directions to disable (any of "N", "S", "E", "W", "NE", "NW", "SE" or "SW")                                                      |
-| dictionary         | Array.String | `[]`    | Words to insert in the grid (some of them may not be inserted if they're too long, cannot be placed, or if maxWords is exceeded) |
-| maxWords           | Integer      | `20`    | Maximum number of words to insert                                                                                                |
-| upperCase          | Boolean      | `true`  | Whether the letters in the grid should be uppercase                                                                              |
-| diacritics         | Boolean      | `false` | Whether the letters in the grid should keep their diacritics (accents)                                                           |
+| name                 | type         | default | description                                                                                                                      |
+| -------------------- | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| cols                 | Integer      | `10`    | Number of columns                                                                                                                |
+| rows                 | Integer      | `10`    | Number of rows                                                                                                                   |
+| disabledDirections   | Array.String | `[]`    | Directions to disable (any of "N", "S", "E", "W", "NE", "NW", "SE" or "SW")                                                      |
+| dictionary           | Array.String | `[]`    | Words to insert in the grid (some of them may not be inserted if they're too long, cannot be placed, or if maxWords is exceeded) |
+| maxWords             | Integer      | `20`    | Maximum number of words to insert                                                                                                |
+| backwardsProbability | Float        | `0.3`   | Probability to have each word written backwards (it's a probability, not a strict percentage)                                    |
+| upperCase            | Boolean      | `true`  | Whether the letters in the grid should be uppercase                                                                              |
+| diacritics           | Boolean      | `false` | Whether the letters in the grid should keep their diacritics (accents)                                                           |
 
 ## Properties and methods
 

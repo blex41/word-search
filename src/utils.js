@@ -224,13 +224,23 @@ const fillGrid = (grid, upperCase) => {
  * @param {String} word - Word
  * @param {Array} grid - Grid
  * @param {Array} allowedDirections - Array of allowed directions ("N", "S", "E", "W", "NE", "NW", "SE", "SW")
+ * @param {Boolean} backwardsProbability - Probability to have each word written backwards
  * @returns {(Array|false)} - Array of positions
  */
-const findPathInGrid = (word, grid, allowedDirections) => {
+const findPathInGrid = (
+  word,
+  grid,
+  allowedDirections,
+  backwardsProbability
+) => {
   let foundPath = false;
   let path;
+  const tryBackwardsFirst = Math.random() < backwardsProbability;
   // We'll try all possible directions in random order until we find a spot
-  const directionsToTry = _shuffle(allowedDirections);
+  const directionsToTry = shuffleDirections(
+    allowedDirections,
+    tryBackwardsFirst
+  );
   while (directionsToTry.length && !foundPath) {
     const direction = directionsToTry.shift();
     // Get the boundaries of where the word can start
@@ -268,6 +278,15 @@ const findPathInGrid = (word, grid, allowedDirections) => {
 
   return foundPath;
 };
+
+function shuffleDirections(allowedDirections, tryBackardsFirst) {
+  const backwardsDirections = _shuffle(["N", "W", "NW", "SW"]);
+  const forwardDirections = _shuffle(["S", "E", "NE", "SE"]);
+  const allDirections = tryBackardsFirst
+    ? backwardsDirections.concat(forwardDirections)
+    : forwardDirections.concat(backwardsDirections);
+  return allDirections.filter(d => allowedDirections.includes(d));
+}
 
 module.exports = {
   getWordStartBoundaries,
