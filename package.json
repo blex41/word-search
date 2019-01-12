@@ -1,11 +1,15 @@
 {
   "name": "@blex41/word-search",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Word search puzzle generator",
-  "main": "src/index.js",
+  "main": "dist/wordsearch.node.js",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "webpack --mode=production",
     "test": "jest --verbose --coverage",
+    "test:watch": "jest --verbose --coverage --watch",
     "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
@@ -17,6 +21,8 @@
     "word",
     "search",
     "puzzle",
+    "mishmash",
+    "grid",
     "generator"
   ],
   "author": "blex41",

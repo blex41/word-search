@@ -1,10 +1,8 @@
-module.exports = {
-  target: "web",
+const baseConfig = {
   entry: "./src/index.js",
   output: {
     path: __dirname + "/dist/",
-    filename: "wordsearch.min.js",
-    library: ["WordSearch"]
+    library: "WordSearch"
   },
   resolve: {
     extensions: [".js"]
@@ -24,3 +22,29 @@ module.exports = {
     ]
   }
 };
+
+/**
+ * This library needs to work in browsers and in NodeJS,
+ * so we declare both configs here.
+ */
+
+const nodeConfig = {
+  ...baseConfig,
+  target: "node",
+  output: {
+    ...baseConfig.output,
+    filename: "wordsearch.node.js",
+    libraryTarget: "umd"
+  }
+};
+
+const webConfig = {
+  ...baseConfig,
+  target: "web",
+  output: {
+    ...baseConfig.output,
+    filename: "wordsearch.min.js"
+  }
+};
+
+module.exports = [nodeConfig, webConfig];
