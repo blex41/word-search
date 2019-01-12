@@ -1,8 +1,8 @@
 {
   "name": "@blex41/word-search",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Word search puzzle generator",
-  "main": "dist/wordsearch.min.js",
+  "main": "dist/wordsearch.node.js",
   "files": [
     "dist/**/*"
   ],
