@@ -1,8 +1,12 @@
-const baseConfig = {
+module.exports = {
+  target: "web",
   entry: "./src/index.js",
   output: {
     path: __dirname + "/dist/",
-    library: "WordSearch"
+    filename: "wordsearch.min.js",
+    library: ["WordSearch"],
+    libraryTarget: "umd",
+    umdNamedDefine: true
   },
   resolve: {
     extensions: [".js"]
@@ -18,33 +22,12 @@ const baseConfig = {
             presets: ["@babel/preset-env"]
           }
         }
+      },
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
       }
     ]
   }
 };
-
-/**
- * This library needs to work in browsers and in NodeJS,
- * so we declare both configs here.
- */
-
-const nodeConfig = {
-  ...baseConfig,
-  target: "node",
-  output: {
-    ...baseConfig.output,
-    filename: "wordsearch.node.js",
-    libraryTarget: "umd"
-  }
-};
-
-const webConfig = {
-  ...baseConfig,
-  target: "web",
-  output: {
-    ...baseConfig.output,
-    filename: "wordsearch.min.js"
-  }
-};
-
-module.exports = [nodeConfig, webConfig];
