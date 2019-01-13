@@ -1,10 +1,10 @@
-const _inRange = require("lodash/inRange");
-const _range = require("lodash/range");
-const _fill = require("lodash/fill");
-const _flatten = require("lodash/flatten");
-const _random = require("lodash/random");
-const _cloneDeep = require("lodash/cloneDeep");
-const _shuffle = require("lodash/shuffle");
+const _inRange = require("lodash.inrange");
+const _range = require("lodash.range");
+const _fill = require("lodash.fill");
+const _flatten = require("lodash.flatten");
+const _random = require("lodash.random");
+const _cloneDeep = require("lodash.clonedeep");
+const _shuffle = require("lodash.shuffle");
 const diacritics = require("diacritics");
 
 /**

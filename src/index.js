@@ -1,7 +1,7 @@
-const _shuffle = require("lodash/shuffle");
-const _merge = require("lodash/merge");
-const _difference = require("lodash/difference");
-const _cloneDeep = require("lodash/cloneDeep");
+const _shuffle = require("lodash.shuffle");
+const _merge = require("lodash.merge");
+const _difference = require("lodash.difference");
+const _cloneDeep = require("lodash.clonedeep");
 const utils = require("./utils.js");
 const defaultSettings = require("./defaultsettings.js");
 
