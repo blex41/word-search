@@ -2,13 +2,16 @@
   "name": "@blex41/word-search",
   "version": "1.0.10",
   "description": "Word search puzzle generator",
-  "main": "dist/wordsearch.node.js",
+  "main": "src/index.js",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "src/**/*"
   ],
   "scripts": {
     "build": "webpack --mode=production",
     "test": "jest --verbose --coverage",
+    "lint": "eslint --ext .js --max-warnings=0 ./src",
+    "format": "eslint ./src --fix",
     "test:watch": "jest --verbose --coverage --watch",
     "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
@@ -33,6 +36,8 @@
   "homepage": "https://github.com/blex41/word-search#readme",
   "dependencies": {
     "diacritics": "^1.3.0",
+    "eslint": "^5.12.0",
+    "eslint-loader": "^2.1.1",
     "lodash": "^4.17.11"
   },
   "jest": {

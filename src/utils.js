@@ -19,16 +19,16 @@ const diacritics = require("diacritics");
  * @returns {Array} Array of positions
  */
 const createPath = (x, y, dir, len) => {
-  return _fill(Array(len - 1), 0).reduce(
-    path => {
-      const { x: prevX, y: prevY } = path[path.length - 1];
-      return path.concat({
-        x: prevX + (dir.includes("E") ? 1 : dir.includes("W") ? -1 : 0),
-        y: prevY + (dir.includes("S") ? 1 : dir.includes("N") ? -1 : 0)
-      });
-    },
-    [{ x, y }]
-  );
+	return _fill(Array(len - 1), 0).reduce(
+		path => {
+			const { x: prevX, y: prevY } = path[path.length - 1];
+			return path.concat({
+				x: prevX + (dir.includes("E") ? 1 : dir.includes("W") ? -1 : 0),
+				y: prevY + (dir.includes("S") ? 1 : dir.includes("N") ? -1 : 0)
+			});
+		},
+		[{ x, y }]
+	);
 };
 
 /**
@@ -45,35 +45,35 @@ const createPath = (x, y, dir, len) => {
  * @returns {(Array|null)} - Array of positions
  */
 const createPathFromPair = (start, end) => {
-  const hDist = end.x - start.x;
-  const vDist = end.y - start.y;
-  const fn = (dir, len) => createPath(start.x, start.y, dir, len);
-  if (hDist === vDist) {
-    if (vDist > 0) {
-      return fn("SE", vDist + 1);
-    } else {
-      return fn("NW", -vDist + 1);
-    }
-  } else if (vDist === -hDist) {
-    if (vDist > 0) {
-      return fn("SW", vDist + 1);
-    } else {
-      return fn("NE", -vDist + 1);
-    }
-  } else if (hDist === 0) {
-    if (vDist > 0) {
-      return fn("S", vDist + 1);
-    } else {
-      return fn("N", -vDist + 1);
-    }
-  } else if (vDist === 0) {
-    if (hDist > 0) {
-      return fn("E", hDist + 1);
-    } else {
-      return fn("W", -hDist + 1);
-    }
-  }
-  return null;
+	const hDist = end.x - start.x;
+	const vDist = end.y - start.y;
+	const fn = (dir, len) => createPath(start.x, start.y, dir, len);
+	if (hDist === vDist) {
+		if (vDist > 0) {
+			return fn("SE", vDist + 1);
+		} else {
+			return fn("NW", -vDist + 1);
+		}
+	} else if (vDist === -hDist) {
+		if (vDist > 0) {
+			return fn("SW", vDist + 1);
+		} else {
+			return fn("NE", -vDist + 1);
+		}
+	} else if (hDist === 0) {
+		if (vDist > 0) {
+			return fn("S", vDist + 1);
+		} else {
+			return fn("N", -vDist + 1);
+		}
+	} else if (vDist === 0) {
+		if (hDist > 0) {
+			return fn("E", hDist + 1);
+		} else {
+			return fn("W", -hDist + 1);
+		}
+	}
+	return null;
 };
 
 /**
@@ -89,51 +89,51 @@ const createPathFromPair = (start, end) => {
  * @returns {(Array|null)} - Array of positions
  */
 const getWordStartBoundaries = (wordLength, direction, cols, rows) => {
-  // Full grid
-  const res = {
-    minX: 0,
-    maxX: cols - 1,
-    minY: 0,
-    maxY: rows - 1
-  };
-  let badInput = false;
-  // For each subdirection (N, S, E, W)
-  direction.split("").forEach(d => {
-    let props;
-    // We get the props to update
-    switch (d) {
-      case "N":
-        props = { minY: wordLength - 1, maxY: rows - 1 };
-        break;
-      case "S":
-        props = { minY: 0, maxY: rows - wordLength };
-        break;
-      case "E":
-        props = { minX: 0, maxX: cols - wordLength };
-        break;
-      case "W":
-        props = { minX: wordLength - 1, maxX: cols - 1 };
-        break;
-      default:
-        // If the direction is unknown,
-        // it's a bad input
-        badInput = true;
-        props = {};
-    }
-    // And we merge them to the result
-    Object.assign(res, props);
-  });
+	// Full grid
+	const res = {
+		minX: 0,
+		maxX: cols - 1,
+		minY: 0,
+		maxY: rows - 1
+	};
+	let badInput = false;
+	// For each subdirection (N, S, E, W)
+	direction.split("").forEach(d => {
+		let props;
+		// We get the props to update
+		switch (d) {
+		case "N":
+			props = { minY: wordLength - 1, maxY: rows - 1 };
+			break;
+		case "S":
+			props = { minY: 0, maxY: rows - wordLength };
+			break;
+		case "E":
+			props = { minX: 0, maxX: cols - wordLength };
+			break;
+		case "W":
+			props = { minX: wordLength - 1, maxX: cols - 1 };
+			break;
+		default:
+			// If the direction is unknown,
+			// it's a bad input
+			badInput = true;
+			props = {};
+		}
+		// And we merge them to the result
+		Object.assign(res, props);
+	});
 
-  // If the word is too long (out of boundaries),
-  // it's a bad input
-  if (
-    [res.minX, res.maxX].some(v => !_inRange(v, 0, cols + 1)) ||
+	// If the word is too long (out of boundaries),
+	// it's a bad input
+	if (
+		[res.minX, res.maxX].some(v => !_inRange(v, 0, cols + 1)) ||
     [res.minY, res.maxY].some(v => !_inRange(v, 0, rows + 1))
-  ) {
-    badInput = true;
-  }
+	) {
+		badInput = true;
+	}
 
-  return badInput ? null : res;
+	return badInput ? null : res;
 };
 
 /**
@@ -147,8 +147,8 @@ const getWordStartBoundaries = (wordLength, direction, cols, rows) => {
  * @returns {String} - The transformed word
  */
 const normalizeWord = (word, upperCase = true, keepDiacritics = false) => {
-  let res = keepDiacritics ? word : diacritics.remove(word);
-  return res[upperCase ? "toUpperCase" : "toLowerCase"]();
+	let res = keepDiacritics ? word : diacritics.remove(word);
+	return res[upperCase ? "toUpperCase" : "toLowerCase"]();
 };
 
 /**
@@ -159,11 +159,11 @@ const normalizeWord = (word, upperCase = true, keepDiacritics = false) => {
  * @returns {String} - A random letter
  */
 const getRandomLetter = upperCase => {
-  let alphabet = "abcdefghijklmnopqrstuvwxyz";
-  if (upperCase) {
-    alphabet = alphabet.toUpperCase();
-  }
-  return alphabet[_random(alphabet.length - 1)];
+	let alphabet = "abcdefghijklmnopqrstuvwxyz";
+	if (upperCase) {
+		alphabet = alphabet.toUpperCase();
+	}
+	return alphabet[_random(alphabet.length - 1)];
 };
 
 /**
@@ -176,9 +176,9 @@ const getRandomLetter = upperCase => {
  * @returns {Array} - A new grid
  */
 const addWordToGrid = (word, path, grid) => {
-  const updatedGrid = _cloneDeep(grid);
-  path.forEach((pos, i) => (updatedGrid[pos.y][pos.x] = word[i]));
-  return updatedGrid;
+	const updatedGrid = _cloneDeep(grid);
+	path.forEach((pos, i) => (updatedGrid[pos.y][pos.x] = word[i]));
+	return updatedGrid;
 };
 
 /**
@@ -191,15 +191,15 @@ const addWordToGrid = (word, path, grid) => {
  * @returns {Array} - A new grid
  */
 const createGrid = (cols, rows) => {
-  const grid = [];
-  for (var y = 0; y < rows; y++) {
-    const line = [];
-    for (var x = 0; x < cols; x++) {
-      line.push(".");
-    }
-    grid.push(line);
-  }
-  return grid;
+	const grid = [];
+	for (var y = 0; y < rows; y++) {
+		const line = [];
+		for (var x = 0; x < cols; x++) {
+			line.push(".");
+		}
+		grid.push(line);
+	}
+	return grid;
 };
 
 /**
@@ -211,9 +211,9 @@ const createGrid = (cols, rows) => {
  * @returns {Array} - A new grid
  */
 const fillGrid = (grid, upperCase) => {
-  return grid.map(row =>
-    row.map(cell => (cell === "." ? getRandomLetter(upperCase) : cell))
-  );
+	return grid.map(row =>
+		row.map(cell => (cell === "." ? getRandomLetter(upperCase) : cell))
+	);
 };
 
 /**
@@ -228,74 +228,74 @@ const fillGrid = (grid, upperCase) => {
  * @returns {(Array|false)} - Array of positions
  */
 const findPathInGrid = (
-  word,
-  grid,
-  allowedDirections,
-  backwardsProbability
+	word,
+	grid,
+	allowedDirections,
+	backwardsProbability
 ) => {
-  let foundPath = false;
-  let path;
-  const tryBackwardsFirst = Math.random() < backwardsProbability;
-  // We'll try all possible directions in random order until we find a spot
-  const directionsToTry = shuffleDirections(
-    allowedDirections,
-    tryBackwardsFirst
-  );
-  while (directionsToTry.length && !foundPath) {
-    const direction = directionsToTry.shift();
-    // Get the boundaries of where the word can start
-    const boundaries = getWordStartBoundaries(
-      word.length,
-      direction,
-      grid[0].length,
-      grid.length
-    );
-    if (boundaries !== null) {
-      const xToTry = _range(boundaries.minX, boundaries.maxX + 1);
-      const yToTry = _range(boundaries.minY, boundaries.maxY + 1);
-      // We'll try all possible positions in random order until we find a spot
-      const positionsToTry = _shuffle(
-        _flatten(xToTry.map(x => yToTry.map(y => ({ x, y }))))
-      );
-      while (positionsToTry.length && !foundPath) {
-        const { x, y } = positionsToTry.shift();
-        let invalidSpot = false;
-        path = createPath(x, y, direction, word.length);
-        let i = 0;
-        while (i < path.length && !invalidSpot) {
-          const letter = word[i];
-          if (![".", letter].includes(grid[path[i].y][path[i].x])) {
-            invalidSpot = true;
-          }
-          i++;
-        }
-        if (!invalidSpot) {
-          foundPath = path;
-        }
-      }
-    }
-  }
+	let foundPath = false;
+	let path;
+	const tryBackwardsFirst = Math.random() < backwardsProbability;
+	// We'll try all possible directions in random order until we find a spot
+	const directionsToTry = shuffleDirections(
+		allowedDirections,
+		tryBackwardsFirst
+	);
+	while (directionsToTry.length && !foundPath) {
+		const direction = directionsToTry.shift();
+		// Get the boundaries of where the word can start
+		const boundaries = getWordStartBoundaries(
+			word.length,
+			direction,
+			grid[0].length,
+			grid.length
+		);
+		if (boundaries !== null) {
+			const xToTry = _range(boundaries.minX, boundaries.maxX + 1);
+			const yToTry = _range(boundaries.minY, boundaries.maxY + 1);
+			// We'll try all possible positions in random order until we find a spot
+			const positionsToTry = _shuffle(
+				_flatten(xToTry.map(x => yToTry.map(y => ({ x, y }))))
+			);
+			while (positionsToTry.length && !foundPath) {
+				const { x, y } = positionsToTry.shift();
+				let invalidSpot = false;
+				path = createPath(x, y, direction, word.length);
+				let i = 0;
+				while (i < path.length && !invalidSpot) {
+					const letter = word[i];
+					if (![".", letter].includes(grid[path[i].y][path[i].x])) {
+						invalidSpot = true;
+					}
+					i++;
+				}
+				if (!invalidSpot) {
+					foundPath = path;
+				}
+			}
+		}
+	}
 
-  return foundPath;
+	return foundPath;
 };
 
 function shuffleDirections(allowedDirections, tryBackardsFirst) {
-  const backwardsDirections = _shuffle(["N", "W", "NW", "SW"]);
-  const forwardDirections = _shuffle(["S", "E", "NE", "SE"]);
-  const allDirections = tryBackardsFirst
-    ? backwardsDirections.concat(forwardDirections)
-    : forwardDirections.concat(backwardsDirections);
-  return allDirections.filter(d => allowedDirections.includes(d));
+	const backwardsDirections = _shuffle(["N", "W", "NW", "SW"]);
+	const forwardDirections = _shuffle(["S", "E", "NE", "SE"]);
+	const allDirections = tryBackardsFirst
+		? backwardsDirections.concat(forwardDirections)
+		: forwardDirections.concat(backwardsDirections);
+	return allDirections.filter(d => allowedDirections.includes(d));
 }
 
 module.exports = {
-  getWordStartBoundaries,
-  createPath,
-  createPathFromPair,
-  normalizeWord,
-  getRandomLetter,
-  addWordToGrid,
-  createGrid,
-  fillGrid,
-  findPathInGrid
+	getWordStartBoundaries,
+	createPath,
+	createPathFromPair,
+	normalizeWord,
+	getRandomLetter,
+	addWordToGrid,
+	createGrid,
+	fillGrid,
+	findPathInGrid
 };
