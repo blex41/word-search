@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build": "webpack --mode=production",
+    "build:doc": "jsdoc ./src -d docs",
     "test": "jest --verbose --coverage",
     "lint": "eslint --ext .js --max-warnings=0 ./src",
     "format": "eslint ./src --fix",
