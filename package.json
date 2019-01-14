@@ -2,9 +2,10 @@
   "name": "@blex41/word-search",
   "version": "1.0.10",
   "description": "Word search puzzle generator",
-  "main": "dist/wordsearch.node.js",
+  "main": "src/index.js",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "src/**/*"
   ],
   "scripts": {
     "build": "webpack --mode=production",
