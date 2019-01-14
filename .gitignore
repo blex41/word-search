@@ -17,6 +17,8 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# Dist folder
+dist
 # Doc generated
 docs
 
