@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/blex41/word-search/compare/v1.0.11...v1.1.0) (2019-01-18)
+
+
+### Features
+
+* make NodeJS bundle work in IE ([#8](https://github.com/blex41/word-search/issues/8)) ([2aedb20](https://github.com/blex41/word-search/commit/2aedb20))
+
 ## [1.0.11](https://github.com/blex41/word-search/compare/v1.0.10...v1.0.11) (2019-01-14)
 
 ### Bug Fixes
