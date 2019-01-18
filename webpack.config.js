@@ -1,4 +1,4 @@
-module.exports = {
+const webConfig = {
   target: "web",
   entry: "./src/index.js",
   output: {
@@ -31,3 +31,11 @@ module.exports = {
     ]
   }
 };
+
+const nodeConfig = {
+  ...webConfig,
+  target: "node",
+  output: { ...webConfig.output, filename: "wordsearch.node.js" }
+};
+
+module.exports = [webConfig, nodeConfig];
