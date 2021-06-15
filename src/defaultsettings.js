@@ -7,5 +7,7 @@ module.exports = {
 	maxWords: 20,
 	backwardsProbability: 0.3,
 	upperCase: true,
-	diacritics: false
+	diacritics: false,
+	forbiddenWords: [],
+	maxRetries: 10
 };

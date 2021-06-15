@@ -58,16 +58,18 @@ console.log(ws.toString());
 
 Here are the options you can pass when creating a new puzzle:
 
-| name                 | type         | default | description                                                                                                                      |
-| -------------------- | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| cols                 | Integer      | `10`    | Number of columns                                                                                                                |
-| rows                 | Integer      | `10`    | Number of rows                                                                                                                   |
-| disabledDirections   | Array.String | `[]`    | Directions to disable (any of "N", "S", "E", "W", "NE", "NW", "SE" or "SW")                                                      |
-| dictionary           | Array.String | `[]`    | Words to insert in the grid (some of them may not be inserted if they're too long, cannot be placed, or if maxWords is exceeded) |
-| maxWords             | Integer      | `20`    | Maximum number of words to insert                                                                                                |
-| backwardsProbability | Float        | `0.3`   | Probability to have each word written backwards (it's a probability, not a strict percentage)                                    |
-| upperCase            | Boolean      | `true`  | Whether the letters in the grid should be uppercase                                                                              |
-| diacritics           | Boolean      | `false` | Whether the letters in the grid should keep their diacritics (accents)                                                           |
+| name                 | type         | default | description                                                                                                                              |
+| -------------------- | ------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| cols                 | Integer      | `10`    | Number of columns                                                                                                                        |
+| rows                 | Integer      | `10`    | Number of rows                                                                                                                           |
+| disabledDirections   | Array.String | `[]`    | Directions to disable (any of "N", "S", "E", "W", "NE", "NW", "SE" or "SW")                                                              |
+| dictionary           | Array.String | `[]`    | Words to insert in the grid (some of them may not be inserted if they're too long, cannot be placed, or if maxWords is exceeded)         |
+| maxWords             | Integer      | `20`    | Maximum number of words to insert                                                                                                        |
+| backwardsProbability | Float        | `0.3`   | Probability to have each word written backwards (it's a probability, not a strict percentage)                                            |
+| upperCase            | Boolean      | `true`  | Whether the letters in the grid should be uppercase                                                                                      |
+| diacritics           | Boolean      | `false` | Whether the letters in the grid should keep their diacritics (accents)                                                                   |
+| forbiddenWords       | Array.String | `[]`    | Words which should not appear accidentally in the final grid, in any direction (e.g. profanity). Will try rebuilding it for `maxRetries` |
+| maxRetries           | Integer      | `10`    | Used only for the `forbiddenWords` option - how many attempts should be made to rebuild the grid when finding forbidden words in it      |
 
 ## Properties and methods
 
@@ -117,6 +119,14 @@ Returns the words that were successfully inserted in the grid:
   }
   /* ... */
 ];
+```
+
+### ws.forbiddenWordsIncluded
+
+Returns an Array of forbidden words which were inserted into the grid because no other solution was found after `maxRetries`:
+
+```javascript
+["CRAP"]
 ```
 
 You can also use these methods:
