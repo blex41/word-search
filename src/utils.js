@@ -279,6 +279,68 @@ const findPathInGrid = (
 	return foundPath;
 };
 
+/**
+ * Filters an Array of words to only keep
+ * those found in a grid, in all directions.
+ * @param {Array} words - Array of normalized words
+ * @param {Array} grid - Grid
+ */
+function filterWordsInGrid(words, grid) {
+	const forwardSequences = getAllCharSequencesFromGrid(grid);
+	const sequences = forwardSequences + "|" + forwardSequences.split("").reverse();
+	return words.filter(w => sequences.includes(w));
+}
+
+/**
+ * Returns a pipe-separated String aggregating all
+ * character sequences found in the grid,
+ * in all forward directions (E, S, NE, SE).
+ * @param {Array} grid - Grid 
+ * @return {String}
+ */
+function getAllCharSequencesFromGrid(grid) {
+	const sequences = [];
+
+	for (let y = 0; y < grid.length; y++) {
+		sequences.push(
+			// Row
+			grid[y].join(""),
+			// South East direction
+			readPathFromGrid(0, y, "SE", Math.min(grid.length - y, grid[0].length), grid),
+			// North East direction
+			readPathFromGrid(0, y, "NE", Math.min(y + 1, grid[0].length), grid)
+		);
+	}
+	for (let x = 0; x < grid[0].length; x++) {
+		// Column
+		sequences.push(grid.map(row => row[x]).join(""));
+		if (x > 0) {
+			sequences.push(
+				// South East direction
+				readPathFromGrid(x, 0, "SE", Math.min(grid[0].length - x, grid.length), grid),
+				// North East direction
+				readPathFromGrid(x, grid.length - 1, "NE", Math.min(grid[0].length - x, grid.length), grid)
+			);
+		}
+	}
+	return sequences.filter(x => x.length > 1).join("|");
+}
+
+/**
+ * Returns a string obtained by reading len characters
+ * from a starting point following a direction.
+ * @param {Integer} x - Start position x
+ * @param {Integer} y - Start position y
+ * @param {String} direction - Direction ("N", "S", "E", "W", "NE", "NW", "SE", "SW")
+ * @param {Integer} len - Length of the string to read
+ * @param {Array} grid - Grid
+ * @returns {String}
+ */
+function readPathFromGrid(x, y, direction, len, grid) {
+	const path = createPath(x, y, direction, len);
+	return path.map(pos => grid[pos.y][pos.x]).join("");
+}
+
 function shuffleDirections(allowedDirections, tryBackardsFirst) {
 	const backwardsDirections = _shuffle(["N", "W", "NW", "SW"]);
 	const forwardDirections = _shuffle(["S", "E", "NE", "SE"]);
@@ -297,5 +359,7 @@ module.exports = {
 	addWordToGrid,
 	createGrid,
 	fillGrid,
-	findPathInGrid
+	findPathInGrid,
+	filterWordsInGrid,
+	getAllCharSequencesFromGrid,
 };
