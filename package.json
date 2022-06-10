@@ -59,7 +59,7 @@
     "eslint-plugin-jest": "^24.3.6",
     "jest": "^23.6.0",
     "jsdoc": "^3.6.7",
-    "semantic-release": "^17.2.3",
+    "semantic-release": "^19.0.3",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   }
